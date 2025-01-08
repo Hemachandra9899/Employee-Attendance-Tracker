@@ -7,33 +7,35 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="relative bg-gradient-to-br from-black via-purple-900 to-black min-h-screen flex flex-col items-center py-10">
+<body>
   <div class="gemini-icon" style="top: 10%; left: 10%;"></div>
   <div class="gemini-icon" style="top: 20%; right: 15%;"></div>
   <div class="gemini-icon" style="bottom: 15%; left: 20%;"></div>
   <div class="gemini-icon" style="bottom: 10%; right: 10%;"></div>
 
-  <div class="w-full max-w-3xl bg-white shadow-md rounded-lg p-6 bg-opacity-50 backdrop-blur-md">
-    <h1 class="text-2xl font-bold text-center text-black mb-6">Employee Attendance Tracker</h1>
+  <div class="container">
+    <h1 class="header">Employee Attendance Tracker</h1>
 
     <!-- Add Employee Section -->
-    <div class="mb-6">
-      <h2 class="text-lg font-semibold text-black mb-2">Add Employee</h2>
-      <div class="flex gap-4">
-        <input id="employeeName" type="text" class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Enter employee name">
-        <button id="addEmployeeBtn" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add</button>
+    <div class="add-employee">
+      <h2>Add Employee</h2>
+      <div class="input-group">
+        <input id="employeeName" type="text" placeholder="Enter employee name">
+        <button id="addEmployeeBtn">Add</button>
       </div>
     </div>
 
     <!-- Attendance Table -->
-    <div>
-      <h2 class="text-lg font-semibold text-black mb-2">Attendance</h2>
-      <table class="w-full border-collapse border border-gray-300">
-        <thead class="bg-gray-200">
+    <div class="attendance-section">
+      <h2>Attendance</h2>
+      <table id="attendanceTable">
+        <thead>
           <tr>
-            <th class="border border-gray-300 px-4 py-2 text-left">Employee Name</th>
-            <th class="border border-gray-300 px-4 py-2">Status</th>
-            <th class="border border-gray-300 px-4 py-2">Actions</th>
+            <th>Name</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Attendance %</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody id="employeeTable">
