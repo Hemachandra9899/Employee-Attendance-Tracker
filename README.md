@@ -1,8 +1,8 @@
-Employee Attendance Tracker
+#Employee Attendance Tracker
 Description:
 A responsive and user-friendly Employee Attendance Tracker built with HTML, CSS, and JavaScript. This web application allows businesses to manage employee attendance efficiently. Key features include:
 
-Add Employees: Dynamically add employees to the attendance table.
+#Add Employees: Dynamically add employees to the attendance table.
 Mark Attendance: Easily mark employees as "Present" or "Absent" with a single click.
 Track Attendance: Automatically calculates and updates the total days present, absent days, and attendance percentage for each employee.
 Clean UI: Designed with Tailwind CSS for a modern and intuitive user interface.
