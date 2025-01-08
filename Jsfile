@@ -1,0 +1,36 @@
+const employeeNameInput = document.getElementById('employeeName');
+const addEmployeeBtn = document.getElementById('addEmployeeBtn');
+const employeeTable = document.getElementById('employeeTable');
+
+// Add employee to the table
+addEmployeeBtn.addEventListener('click', () => {
+  const name = employeeNameInput.value.trim();
+  if (name === '') {
+    alert('Please enter an employee name.');
+    return;
+  }
+
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td class="border border-gray-300 px-4 py-2">${name}</td>
+    <td class="border border-gray-300 px-4 py-2 text-center" data-status="Absent">Absent</td>
+    <td class="border border-gray-300 px-4 py-2 text-center">
+      <button class="markPresent bg-green-500 text-white px-2 py-1 rounded-md hover:bg-green-600">Mark Present</button>
+      <button class="markAbsent bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 ml-2">Mark Absent</button>
+    </td>
+  `;
+
+  employeeTable.appendChild(row);
+  employeeNameInput.value = '';
+
+  // Add event listeners for the action buttons
+  row.querySelector('.markPresent').addEventListener('click', () => {
+    row.cells[1].textContent = 'Present';
+    row.cells[1].dataset.status = 'Present';
+  });
+
+  row.querySelector('.markAbsent').addEventListener('click', () => {
+    row.cells[1].textContent = 'Absent';
+    row.cells[1].dataset.status = 'Absent';
+  });
+});
