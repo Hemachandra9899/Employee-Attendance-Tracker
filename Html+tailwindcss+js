@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Attendance Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://www.transparenttextures.com/patterns/noise.png');
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .gemini-icon {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Gemini_symbol_%28bold%29.svg/1024px-Gemini_symbol_%28bold%29.svg.png') no-repeat center;
+      background-size: contain;
+      opacity: 0.2;
+    }
+  </style>
+</head>
+<body class="relative bg-gradient-to-br from-black via-purple-900 to-black min-h-screen flex flex-col items-center py-10">
+  <div class="gemini-icon" style="top: 10%; left: 10%;"></div>
+  <div class="gemini-icon" style="top: 20%; right: 15%;"></div>
+  <div class="gemini-icon" style="bottom: 15%; left: 20%;"></div>
+  <div class="gemini-icon" style="bottom: 10%; right: 10%;"></div>
+
+  <div class="w-full max-w-3xl bg-white shadow-md rounded-lg p-6 bg-opacity-50 backdrop-blur-md">
+    <h1 class="text-2xl font-bold text-center text-black mb-6">Employee Attendance Tracker</h1>
+
+    <!-- Add Employee Section -->
+    <div class="mb-6">
+      <h2 class="text-lg font-semibold text-black mb-2">Add Employee</h2>
+      <div class="flex gap-4">
+        <input id="employeeName" type="text" class="flex-1 border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Enter employee name">
+        <button id="addEmployeeBtn" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add</button>
+      </div>
+    </div>
+
+    <!-- Attendance Table -->
+    <div>
+      <h2 class="text-lg font-semibold text-black mb-2">Attendance</h2>
+      <table class="w-full border-collapse border border-gray-300">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="border border-gray-300 px-4 py-2 text-left">Employee Name</th>
+            <th class="border border-gray-300 px-4 py-2">Status</th>
+            <th class="border border-gray-300 px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="employeeTable">
+          <!-- Rows will be dynamically added here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const employeeNameInput = document.getElementById('employeeName');
+    const addEmployeeBtn = document.getElementById('addEmployeeBtn');
+    const employeeTable = document.getElementById('employeeTable');
+
+    // Add employee to the table
+    addEmployeeBtn.addEventListener('click', () => {
+      const name = employeeNameInput.value.trim();
+      if (name === '') {
+        alert('Please enter an employee name.');
+        return;
+      }
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class="border border-gray-300 px-4 py-2">${name}</td>
+        <td class="border border-gray-300 px-4 py-2 text-center" data-status="Absent">Absent</td>
+        <td class="border border-gray-300 px-4 py-2 text-center">
+          <button class="markPresent bg-green-500 text-white px-2 py-1 rounded-md hover:bg-green-600">Mark Present</button>
+          <button class="markAbsent bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 ml-2">Mark Absent</button>
+        </td>
+      `;
+
+      employeeTable.appendChild(row);
+      employeeNameInput.value = '';
+
+      // Add event listeners for the action buttons
+      row.querySelector('.markPresent').addEventListener('click', () => {
+        row.cells[1].textContent = 'Present';
+        row.cells[1].dataset.status = 'Present';
+      });
+
+      row.querySelector('.markAbsent').addEventListener('click', () => {
+        row.cells[1].textContent = 'Absent';
+        row.cells[1].dataset.status = 'Absent';
+      });
+    });
+  </script>
+</body>
+</html>
