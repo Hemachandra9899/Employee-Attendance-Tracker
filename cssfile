@@ -1,13 +1,12 @@
-body::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('https://www.transparenttextures.com/patterns/noise.png');
-  opacity: 0.1;
-  pointer-events: none;
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #000, #4b0082, #000);
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .gemini-icon {
@@ -17,4 +16,74 @@ body::before {
   background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Gemini_symbol_%28bold%29.svg/1024px-Gemini_symbol_%28bold%29.svg.png') no-repeat center;
   background-size: contain;
   opacity: 0.2;
+}
+
+.container {
+  width: 100%;
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-employee {
+  margin-bottom: 20px;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 8px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.attendance-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.attendance-section th,
+.attendance-section td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.attendance-section th {
+  background: #333;
+  color: white;
+}
+
+.flex {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
 }
