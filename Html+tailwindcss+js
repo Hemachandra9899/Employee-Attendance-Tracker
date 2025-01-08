@@ -49,12 +49,14 @@
     <!-- Attendance Table -->
     <div>
       <h2 class="text-lg font-semibold text-black mb-2">Attendance</h2>
-      <table class="w-full border-collapse border border-gray-300">
+      <table class="w-full border-collapse border border-gray-300 text-sm">
         <thead class="bg-gray-200">
           <tr>
-            <th class="border border-gray-300 px-4 py-2 text-left">Employee Name</th>
-            <th class="border border-gray-300 px-4 py-2">Status</th>
-            <th class="border border-gray-300 px-4 py-2">Actions</th>
+            <th class="border border-gray-300 px-3 py-2 text-left">Name</th>
+            <th class="border border-gray-300 px-3 py-2">Present</th>
+            <th class="border border-gray-300 px-3 py-2">Absent</th>
+            <th class="border border-gray-300 px-3 py-2">Attendance %</th>
+            <th class="border border-gray-300 px-3 py-2">Actions</th>
           </tr>
         </thead>
         <tbody id="employeeTable">
@@ -69,6 +71,8 @@
     const addEmployeeBtn = document.getElementById('addEmployeeBtn');
     const employeeTable = document.getElementById('employeeTable');
 
+    let employees = [];
+
     // Add employee to the table
     addEmployeeBtn.addEventListener('click', () => {
       const name = employeeNameInput.value.trim();
@@ -77,30 +81,70 @@
         return;
       }
 
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td class="border border-gray-300 px-4 py-2">${name}</td>
-        <td class="border border-gray-300 px-4 py-2 text-center" data-status="Absent">Absent</td>
-        <td class="border border-gray-300 px-4 py-2 text-center">
-          <button class="markPresent bg-green-500 text-white px-2 py-1 rounded-md hover:bg-green-600">Mark Present</button>
-          <button class="markAbsent bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 ml-2">Mark Absent</button>
-        </td>
-      `;
+      // Check if employee already exists
+      let employee = employees.find(emp => emp.name === name);
 
-      employeeTable.appendChild(row);
+      if (!employee) {
+        // Create a new employee object
+        employee = {
+          name: name,
+          totalDays: 0,
+          presentDays: 0,
+          absentDays: 0,
+        };
+
+        // Create row for the employee
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="border border-gray-300 px-3 py-2">${name}</td>
+          <td class="border border-gray-300 px-3 py-2 text-center" data-present-days="0">0</td>
+          <td class="border border-gray-300 px-3 py-2 text-center" data-absent-days="0">0</td>
+          <td class="border border-gray-300 px-3 py-2 text-center" data-percentage="0%">0%</td>
+          <td class="border border-gray-300 px-3 py-2 text-center">
+            <div class="flex justify-center gap-2">
+              <button class="markPresent bg-green-500 text-white px-2 py-1 rounded-md hover:bg-green-600">Present</button>
+              <button class="markAbsent bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600">Absent</button>
+            </div>
+          </td>
+        `;
+
+        employeeTable.appendChild(row);
+        employees.push(employee);
+
+        // Add event listeners for the action buttons
+        row.querySelector('.markPresent').addEventListener('click', () => {
+          employee.totalDays += 1;
+          employee.presentDays += 1;
+          updateAttendance(row, employee);
+        });
+
+        row.querySelector('.markAbsent').addEventListener('click', () => {
+          employee.totalDays += 1;
+          employee.absentDays += 1;
+          updateAttendance(row, employee);
+        });
+      }
+
       employeeNameInput.value = '';
-
-      // Add event listeners for the action buttons
-      row.querySelector('.markPresent').addEventListener('click', () => {
-        row.cells[1].textContent = 'Present';
-        row.cells[1].dataset.status = 'Present';
-      });
-
-      row.querySelector('.markAbsent').addEventListener('click', () => {
-        row.cells[1].textContent = 'Absent';
-        row.cells[1].dataset.status = 'Absent';
-      });
     });
+
+    // Update the attendance status and percentage
+    function updateAttendance(row, employee) {
+      // Update present and absent days
+      const presentDaysCell = row.cells[1];
+      const absentDaysCell = row.cells[2];
+      const percentageCell = row.cells[3];
+
+      presentDaysCell.textContent = employee.presentDays;
+      presentDaysCell.dataset.presentDays = employee.presentDays;
+
+      absentDaysCell.textContent = employee.absentDays;
+      absentDaysCell.dataset.absentDays = employee.absentDays;
+
+      const percentage = ((employee.presentDays / employee.totalDays) * 100).toFixed(2);
+      percentageCell.textContent = `${percentage}%`;
+      percentageCell.dataset.percentage = `${percentage}%`;
+    }
   </script>
 </body>
 </html>
